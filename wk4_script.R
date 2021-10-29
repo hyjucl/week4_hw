@@ -5,7 +5,7 @@ library(dplyr)
 library(janitor)
 
 diff_ineq <- read_csv(here::here("Data", 
-                              "Gender_Inequality_Index.csv"))
+                              "Gender_Inequality_Index_edit.csv"))
 
 shape <- st_read(here::here("Data",
                             "World_Countries_(Generalized)",
