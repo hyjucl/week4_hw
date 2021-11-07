@@ -124,8 +124,11 @@ legend <- tm_shape(joinshp) + #就是图标
               palette="PuBu")+
   tm_legend(show=TRUE)+
   tm_layout(legend.only = TRUE, legend.position=c(0.1,0.1),asp=0.1)
+
+
 # in tmap can't make legends side by side unless use this workaround: 
 #https://github.com/r-tmap/tmap/issues/476 
 t=tmap_arrange(tm1, tm2, tm3, legend, ncol=2)
 t
+
 ```
