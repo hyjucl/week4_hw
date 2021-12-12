@@ -1,0 +1,64 @@
+---
+title: "revise_wk4"
+output: html_document
+---
+
+### Read in data:
+考试的时候也要这样写，把网址给copy下来。
+Located within the Data folder:
+
+* HDI data from: http://hdr.undp.org/en/indicators/68606#
+* Shapefile from: https://hub.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0/explore?location=-2.688200%2C0.000000%2C1.41 
+
+## Load packages
+```{r import library}
+library(sf)
+library(here)
+library(tidyverse)
+library(dplyr)
+library(janitor)
+```
+
+## Read in data
+### 在read in 之前记得点开csv看看需不需要其他的操作
+```{r read in data}
+gen_inq <- read_csv(here::here("Data","Gender Inequality Index (GII).csv"),
+                    locale = locale(encoding = "latin1"),
+                       na = "..", skip=5)
+
+World <- st_read(here::here("Data","World_Countries_(Generalized)","World_Countries__Generalized_.shp"))
+```
+
+## Column names
+
+Select columns we want and change country name to country code, using the `countrycode` package
+
+We could also just join it without this on the country name column 
+
+```{r}
+gen_inq_use <- gen_inq%>%
+  clean_names()%>%
+  select(country,x2010,x2019)%>%
+  mutate(diff = x2019-x2010)%>%
+  slice(1:189) #after 189 there is no countries
+```
+
+## Join
+
+Join the csv to world shape file
+```{r}
+gen_world <- World %>%
+  clean_names()%>%
+  left_join(.,
+		         gen_inq_use,
+		          by = c("country" = "country"))
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
